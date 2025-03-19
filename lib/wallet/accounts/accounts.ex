@@ -28,6 +28,11 @@ defmodule Wallet.Accounts do
     end
   end
 
+  def transactions_for(account_id) do
+    from(t in Transaction, where: t.account_id == ^account_id, order_by: [asc: t.sequence])
+    |> Repo.all()
+  end
+
   def topup(account_id, amount, opts \\ []) do
     unique_transaction_amount_window_in_seconds =
       Keyword.get(
@@ -129,7 +134,7 @@ defmodule Wallet.Accounts do
       account_id: account.id,
       sequence: account.next_transaction_sequence,
       amount: amount,
-      new_balance: new_balance
+      new_balance: Decimal.round(new_balance, 2)
     })
     |> repo.insert()
   end
@@ -143,7 +148,7 @@ defmodule Wallet.Accounts do
   defp update_account(repo, %{account: account, new_balance: new_balance}) do
     account
     |> Account.changeset(%{
-      balance: new_balance,
+      balance: Decimal.round(new_balance, 2),
       next_transaction_sequence: account.next_transaction_sequence + 1
     })
     |> repo.update()

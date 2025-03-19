@@ -5,8 +5,22 @@ defmodule WalletWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authenticated do
+    plug WalletWeb.Authenticate
+  end
+
   scope "/api", WalletWeb do
     pipe_through :api
+
+    post "/register", AccountsController, :register
+  end
+
+  scope "/api", WalletWeb do
+    pipe_through [:api, :authenticated]
+    get "/account", AccountsController, :account
+    get "/transactions", TransactionsController, :transactions
+    post "/transactions/topup", TransactionsController, :topup
+    post "/transactions/charge", TransactionsController, :charge
   end
 
   # Enable LiveDashboard in development

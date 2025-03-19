@@ -32,7 +32,15 @@ defmodule Wallet.Accounts.Transaction do
         _ -> [{field, "at most 2 decimal points"}]
       end
     end)
+    |> normalize_amount()
   end
+
+  defp normalize_amount(%{valid?: true} = changeset) do
+    amount = get_field(changeset, :amount)
+    put_change(changeset, :amount, Decimal.round(amount, 2))
+  end
+
+  defp normalize_amount(changeset), do: changeset
 
   def duplicate_error(%__MODULE__{} = transaction) do
     transaction

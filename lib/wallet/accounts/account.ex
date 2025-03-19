@@ -10,8 +10,6 @@ defmodule Wallet.Accounts.Account do
     # in real system we should store them in a different table to be able to allow multiple tokens and
     # able to logout each one by its own or log all of them. Also, so we can add time restrictions ...etc
     field :token, :string
-    # we are going to use this to preload the transactions and embeds it to the account repose
-    # in real system, we should paginate them instead of returning all of them
     has_many :transactions, Wallet.Accounts.Transaction, preload_order: [asc: :sequence]
     timestamps()
   end

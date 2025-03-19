@@ -44,6 +44,7 @@ defmodule WalletWeb do
       use Gettext, backend: WalletWeb.Gettext
 
       import Plug.Conn
+      import unquote(__MODULE__), only: [traverse_errors: 1]
 
       unquote(verified_routes())
     end
@@ -63,5 +64,13 @@ defmodule WalletWeb do
   """
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
+  end
+
+  def traverse_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->
+      Regex.replace(~r"%{(\w+)}", message, fn _, key ->
+        opts |> Keyword.get(String.to_existing_atom(key), key) |> to_string()
+      end)
+    end)
   end
 end
