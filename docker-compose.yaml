@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: elixir_dev
+    image: "elixir:1.17-alpine"
     working_dir: /app
     volumes:
       - .:/app

@@ -64,7 +64,7 @@ defmodule WalletWeb.TransactionsController do
       ```
   """
   def topup(%{assigns: %{account: account}} = conn, params) do
-    amount = params |> Map.get("transaction", %{}) |> Map.get("amount")
+    amount = params |> Map.get("transaction", %{}) |> Map.get("amount", "0")
 
     case Accounts.topup(account.id, amount) do
       {:ok, %{transaction: transaction}} ->
@@ -108,7 +108,7 @@ defmodule WalletWeb.TransactionsController do
       ```
   """
   def charge(%{assigns: %{account: account}} = conn, params) do
-    amount = params |> Map.get("transaction", %{}) |> Map.get("amount")
+    amount = params |> Map.get("transaction", %{}) |> Map.get("amount", "0")
 
     case Accounts.charge(account.id, amount) do
       {:ok, %{transaction: transaction}} ->
