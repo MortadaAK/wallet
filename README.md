@@ -20,16 +20,16 @@ This is an example project that simulate a system that has
 
 ## Framework/Language
 We are using Elixir as the backend and Phoenix for the framework here is why:
-- *Scalability & Concurrency*: Elixir runs on the BEAM VM, making it highly efficient for handling concurrent requests.
-- *Fault Tolerance*: The supervision tree architecture ensures system reliability and self-healing capabilities.
-- *Performance*: Lightweight processes allow efficient handling of thousands of requests with minimal overhead.
-- *Maintainability*: Functional programming and clear syntax lead to clean, maintainable code.
-- *Real-time Capabilities*: Excellent for real-time applications due to Phoenix Channels and WebSockets support.
-- *Robust Ecosystem*: The Phoenix framework provides built-in support for REST, GraphQL, and WebSockets.
-- *Developer Productivity*: Features like pattern matching, pipelines, and immutability lead to fewer bugs and faster development.
-- *Strong Testing Support*: The built-in ExUnit framework makes writing and maintaining tests seamless.
-- *Ease of Deployment*: Elixir’s releases and hot upgrades simplify deployment and operational efficiency.
-- *Growing Adoption*: Used by companies like Discord, Pinterest, and WhatsApp for high-performance applications.
+- **Scalability & Concurrency**: Elixir runs on the BEAM VM, making it highly efficient for handling concurrent requests.
+- **Fault Tolerance**: The supervision tree architecture ensures system reliability and self-healing capabilities.
+- **Performance**: Lightweight processes allow efficient handling of thousands of requests with minimal overhead.
+- **Maintainability**: Functional programming and clear syntax lead to clean, maintainable code.
+- **Real-time Capabilities**: Excellent for real-time applications due to Phoenix Channels and WebSockets support.
+- **Robust Ecosystem**: The Phoenix framework provides built-in support for REST, GraphQL, and WebSockets.
+- **Developer Productivity**: Features like pattern matching, pipelines, and immutability lead to fewer bugs and faster development.
+- **Strong Testing Support**: The built-in ExUnit framework makes writing and maintaining tests seamless.
+- **Ease of Deployment**: Elixir’s releases and hot upgrades simplify deployment and operational efficiency.
+- **Growing Adoption**: Used by companies like Discord, Pinterest, and WhatsApp for high-performance applications.
 
 For more information about it
 
@@ -50,3 +50,9 @@ docker-compose up
 this will setup postgres, Elixir and install all dependencies and migrate the database
 
 then you can access it at [`localhost:4000`](http://localhost:4000)
+
+
+## Project structure
+- **lib/wallet/accounts** this has all backend logic that handles the account registration and transactions
+- **lib/wallet_web/controllers** this holds the endpoint logic that process these requests
+- **priv/repo/migrations** stores all database migrations
