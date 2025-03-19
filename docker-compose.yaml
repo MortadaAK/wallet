@@ -1,0 +1,32 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: elixir_dev
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: sh -c "mix do deps.get, ecto.create, ecto.migrate && mix phx.server"
+    environment:
+      - MIX_ENV=dev
+      - DATABASE_URL=ecto://postgres:postgres@db/elixir_dev
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17-alpine
+    container_name: elixir_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: elixir_dev
+    ports:
+      - "5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

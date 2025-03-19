@@ -1,0 +1,13 @@
+FROM elixir:1.16-alpine
+
+# Install dependencies
+RUN apk add --no-cache build-base bash git openssh-client postgresql-client inotify-tools
+
+# Install Hex & Rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
+WORKDIR /app
+COPY . .
+
+CMD ["iex", "-S", "mix", "phx.server"]

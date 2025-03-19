@@ -1,1 +1,2 @@
 global direnv 2.35.0
+direnv 2.35.0 -u
