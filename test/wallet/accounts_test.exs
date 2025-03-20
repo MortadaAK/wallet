@@ -52,7 +52,7 @@ defmodule Wallet.AccountsTest do
     end
 
     test "should increment the account balance and next sequence", %{account: account} do
-      amount = Decimal.from_float(100.00)
+      amount = Decimal.new("100.00")
 
       assert {:ok,
               %{
@@ -87,6 +87,17 @@ defmodule Wallet.AccountsTest do
          } do
       assert {:ok, %{}} = Accounts.topup(account.id, 100)
       assert {:ok, %{}} = Accounts.charge(account.id, 100)
+    end
+
+    test "should allow duplicate transactions amount and with same type after a specified window",
+         %{
+           account: account
+         } do
+      assert {:ok, %{}} = Accounts.topup(account.id, 100)
+      Process.sleep(500)
+
+      assert {:ok, %{}} =
+               Accounts.topup(account.id, 100, unique_transaction_amount_window_in_seconds: 0)
     end
 
     test "should always use the latest account balance (reload and lock)", %{account: account} do
@@ -133,8 +144,8 @@ defmodule Wallet.AccountsTest do
     end
 
     test "should decrement the account balance and increment next sequence", %{account: account} do
-      amount = Decimal.from_float(12.00)
-      new_balance = Decimal.from_float(88.00)
+      amount = Decimal.new("12.00")
+      new_balance = Decimal.new("88.00")
 
       assert {:ok,
               %{

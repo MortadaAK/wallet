@@ -56,3 +56,6 @@ then you can access it at [`localhost:4000`](http://localhost:4000)
 - **lib/wallet/accounts** this has all backend logic that handles the account registration and transactions
 - **lib/wallet_web/controllers** this holds the endpoint logic that process these requests
 - **priv/repo/migrations** stores all database migrations
+- **test/wallet/accounts_test.exs** tests around the data models
+- **test/wallet_web/controllers/accounts_test.exs** tests around accounts endpoints
+- **test/wallet_web/controllers/transactions_test.exs** tests around transactions endpoints
