@@ -59,3 +59,4 @@ then you can access it at [`localhost:4000`](http://localhost:4000)
 - **test/wallet/accounts_test.exs** tests around the data models
 - **test/wallet_web/controllers/accounts_test.exs** tests around accounts endpoints
 - **test/wallet_web/controllers/transactions_test.exs** tests around transactions endpoints
+- **postman** multiple collections that test the endpoints
